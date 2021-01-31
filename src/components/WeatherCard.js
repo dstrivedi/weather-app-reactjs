@@ -1,6 +1,8 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 
+import "../style.css";
+
 const WeatherCard = ({ dt, temp_min, temp_max, main, icon }) => {
   const date = new Date(dt);
   return (
