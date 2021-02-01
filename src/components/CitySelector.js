@@ -9,9 +9,7 @@ const CitySelector = () => {
   const [load, setLoad] = useState(false);
 
   const onSearch = () => {
-    fetch(
-      `${API_BASE_URL}/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`
-    )
+    fetch(`${API_BASE_URL}forecast?q=${city}&appid=${API_KEY}&units=metric`)
       .then(res => res.json())
       .then(results => {
         setResult(results);
@@ -43,23 +41,25 @@ const CitySelector = () => {
       </Row>
       <Row>
         <Col>
-          <Button onClick={onSearch}>Check Weather</Button>
+          <Button onClick={onSearch}>Check Forecast</Button>
         </Col>
       </Row>
 
       {load ? (
         <Row>
-          {results.list.map(res => {
-            return (
-              <WeatherCard
-                dt={res.dt}
-                temp_min={res.main.temp_min}
-                temp_max={res.main.temp_max}
-                main={res.weather.map(w => w.main)}
-                icon={res.weather.map(w => w.icon)}
-              />
-            );
-          })}
+          <Col>
+            {results.list.map(res => {
+              return (
+                <WeatherCard
+                  dt={res.dt}
+                  temp_min={res.main.temp_min}
+                  temp_max={res.main.temp_max}
+                  main={res.weather.map(w => w.main)}
+                  icon={res.weather.map(w => w.icon)}
+                />
+              );
+            })}
+          </Col>
         </Row>
       ) : null}
     </>
