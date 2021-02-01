@@ -17,6 +17,7 @@ const CitySelector = () => {
         setResult(results);
         setLoad(true);
         console.log(results);
+        console.log(load);
       })
       .catch(err => {
         console.log(err);
@@ -48,17 +49,17 @@ const CitySelector = () => {
 
       {load ? (
         <Row>
-          <Col>
-            {results.list.map(res => {
+          {results.list.map(res => {
+            return (
               <WeatherCard
-                dt={1602104400 * 1000}
-                temp_min="22.67"
-                temp_max="24.39"
-                main="Clear"
-                icon="01d"
-              />;
-            })}
-          </Col>
+                dt={res.dt}
+                temp_min={res.main.temp_min}
+                temp_max={res.main.temp_max}
+                main={res.weather.map(w => w.main)}
+                icon={res.weather.map(w => w.icon)}
+              />
+            );
+          })}
         </Row>
       ) : null}
     </>
